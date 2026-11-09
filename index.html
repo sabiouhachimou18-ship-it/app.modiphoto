@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ModiPhoto</title>
+<style>
+body{font-family:sans-serif;text-align:center;background:#f2f2f2;padding:15px}
+h1{color:#222}
+img{max-width:100%;border-radius:12px;margin-top:10px}
+button{padding:10px 15px;margin:5px;border:none;border-radius:8px;background:#222;color:white}
+input{margin:10px}
+</style>
+</head>
+<body>
+<h1>📸 ModiPhoto</h1>
+<p>Choisis une photo, applique un filtre !</p>
+
+<input type="file" id="photo" accept="image/*"><br>
+<img id="image" src=""><br>
+
+<button onclick="filtre('none')">Normal</button>
+<button onclick="filtre('grayscale(100%)')">Noir & Blanc</button>
+<button onclick="filtre('sepia(100%)')">Ancien</button>
+<button onclick="filtre('contrast(150%) brightness(120%)')">Clair</button>
+<button onclick="filtre('blur(2px)')">Flou</button>
+<br><br>
+<button onclick="telecharger()" style="background:green">⬇ Télécharger</button>
+
+<script>
+let img = document.getElementById('image');
+document.getElementById('photo').addEventListener('change', function(e){
+  img.src = URL.createObjectURL(e.target.files[0]);
+});
+function filtre(f){ img.style.filter = f; }
+function telecharger(){
+  if(!img.src){ alert('Choisis d’abord une photo'); return; }
+  let a = document.createElement('a');
+  a.href = img.src;
+  a.download = 'modiphoto.png';
+  a.click();
+}
+</script>
+</body>
+</html>
